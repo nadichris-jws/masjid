@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jadwal Sholat</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* AUTO ROTATE JIKA PORTRAIT */
+        @media screen and (orientation: portrait) {
+            .container {
+                transform: rotate(90deg);
+                transform-origin: center;
+                width: 100vh !important;
+                height: 100vw !important;
+            }
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('masjid2.jpg'); 
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 40px 0 40px; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+        }
+
+        /* TOP BAR: Jam Sekarang (Kiri), Judul (Tengah), Tanggal (Kanan) */
+        .top-bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            width: 100%;
+        }
+
+        #jam-now {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffffff;
+            text-align: left;
+            font-family: monospace;
+        }
+.kedip { 
+    animation: blink 1s steps(2, start) infinite; 
+}
+
+@keyframes blink { 
+    to { visibility: hidden; } 
+}
+
+        .title-group {
+            text-align: center;
+        }
+
+        .schedule-title {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        #tanggal-sekarang {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .city-tag {
+            background: #d84315;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            display: inline-block;
+            text-shadow: none;
+        }
+
+        /* BOTTOM SECTION */
+        .bottom-section {
+            width: 100%;
+            max-width: 950px;
+            margin-top: auto;
+        }
+
+        /* Status & Countdown Sejajar di atas Imsak */
+        .status-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: baseline;
+            gap: 15px; /* Jarak antara teks menuju dan angka countdown */
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        #next-label {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        #countdown {
+            font-size: 18px;
+            font-weight: 900;
+            color: #ff4040;
+            font-family: monospace;
+        }
+
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            width: 100%;
+        }
+
+        .prayer-item {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 15px 5px;
+            border-radius: 10px 10px 0 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none;
+            text-align: center;
+        }
+
+        .prayer-name {
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffb74d;
+            letter-spacing: 1px;
+        }
+
+        .prayer-time {
+            display: block;
+            font-size: 24px;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+     <div id="jam-now">
+    <span id="hDisplay">00</span><span class="kedip">:</span><span id="mDisplay">00</span>
+</div>
+   
+        
+        <div class="title-group">
+            <h1 class="schedule-title">Jadwal Sholat</h1>
+        </div>
+
+        <div id="tanggal-sekarang">
+            <script>
+                const opsi = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+                document.write(new Date().toLocaleDateString('id-ID', opsi));
+            </script>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="city-tag" id="lokasi-nama">JAKARTA</div>
+
+        <div class="bottom-section">
+            <div class="status-container">
+                <div id="next-label">MENGHUBUNGKAN...</div>
+                <div id="countdown">00:00:00</div>
+            </div>
+
+            <div class="prayer-grid">
+                <div class="prayer-item">
+                    <span class="prayer-name">IMSAK</span>
+                    <span id="imsak" class="prayer-time">--:--</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="prayer-name">SUBUH</span>
+                    <span id="subuh" class="prayer-time">--:--</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="prayer-name">DZUHUR</span>
+                    <span id="dzuhur" class="prayer-time">--:--</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="prayer-name">ASHAR</span>
+                    <span id="ashar" class="prayer-time">--:--</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="prayer-name">MAGHRIB</span>
+                    <span id="maghrib" class="prayer-time">--:--</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="prayer-name">ISYA</span>
+                    <span id="isya" class="prayer-time">--:--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<audio id="adzanAudio" src="https://www.islamcan.com/audio/adzan/azan1.mp3"></audio>
+
+<script>
+    let jadwal = null;
+    let sudahAdzan = { Subuh: false, Zuhur: false, Asar: false, Maghrib: false, Isya: false };
+    const lokasiId = 1108; 
+
+    // Jam Digital Real-time (Atas Kiri)
+    function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    document.getElementById('hDisplay').textContent = hours;
+    document.getElementById('mDisplay').textContent = minutes;
+}
+
+// Jalankan setiap detik
+setInterval(updateClock, 1000);
+updateClock();
+
+    // Fetch Data Jadwal
+    fetch(`https://api.myquran.com/v2/sholat/jadwal/${lokasiId}/${new Date().toISOString().slice(0,10).replace(/-/g,'/')}`)
+    .then(r => r.json())
+    .then(j => {
+        jadwal = j.data.jadwal;
+        document.getElementById('lokasi-nama').textContent = j.data.lokasi;
+        document.getElementById('imsak').textContent = jadwal.imsak;
+        document.getElementById('subuh').textContent = jadwal.subuh;
+        document.getElementById('dzuhur').textContent = jadwal.dzuhur;
+        document.getElementById('ashar').textContent = jadwal.ashar;
+        document.getElementById('maghrib').textContent = jadwal.maghrib;
+        document.getElementById('isya').textContent = jadwal.isya;
+    });
+
+    // Hitung Mundur
+    setInterval(() => {
+        if(!jadwal) return;
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const list = [
+            {n:"Subuh", t:jadwal.subuh}, {n:"Dzuhur", t:jadwal.dzuhur},
+            {n:"Ashar", t:jadwal.ashar}, {n:"Maghrib", t:jadwal.maghrib}, {n:"Isya", t:jadwal.isya}
+        ];
+
+        let next = null;
+        for(const j of list) {
+            const [h,m] = j.t.split(":");
+            const d = new Date(today.getFullYear(), today.getMonth(), today.getDate(), h, m);
+            if(d > now) {
+                next = {...j, d};
+                break;
+            }
+        }
+
+        const countdownEl = document.getElementById('countdown');
+        const nextLabel = document.getElementById('next-label');
+
+        if(!next){
+            nextLabel.textContent = "MENUJU SUBUH (BESOK)";
+            countdownEl.textContent = "";
+            return;
+        }
+
+        const diff = next.d - now;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        
+        nextLabel.textContent = `MENUJU ${next.n.toUpperCase()}`;
+        countdownEl.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+        const nowHM = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+        if(nowHM === next.t && !sudahAdzan[next.n]){
+            document.getElementById('adzanAudio').play().catch(() => {});
+            sudahAdzan[next.n] = true;
+        }
+    }, 1000);
+</script>
+</body>
+</html>
