@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Display Jadwal Sholat - Masjid Jamie Al Muttaqin</title>
+<title>Display Jadwal Sholat - Masjid Jamie Al Muttaqien</title>
 
 <style>
 body{
@@ -14,7 +14,6 @@ body{
   color:white;
   font-family:Arial, sans-serif;
   text-shadow:1px 2px 4px rgba(0,0,0,.7);										  
-
 }	
 /* HEADER */
 #headerTop{
@@ -93,19 +92,35 @@ body{
   text-align:right;
   color:#ffd966;
 }
-/* ================= CSS LAPORAN KEUANGAN ================= */													
+/* ================= CSS INFORMASI JUMAT ================= */									
 .main-content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }			   
 
 .finance-container {
   position: absolute;
-  top: 250px;   /* sesuaikan */
-  left: 50px;  /* sesuaikan */
-
+  top: 200px;   
+  left: 50px;   
+  
+  background-color: #e8f5e9; 
+  background-image: radial-gradient(circle at 100% 150%, #c8e6c9 24%, white 25%, white 28%, #c8e6c9 29%, #c8e6c9 36%, white 36%, white 40%, transparent 40%, transparent),
+                    radial-gradient(circle at 0    150%, #c8e6c9 24%, white 25%, white 28%, #c8e6c9 29%, #c8e6c9 36%, white 36%, white 40%, transparent 40%, transparent),
+                    radial-gradient(circle at 50%  100%, white 10%, #c8e6c9 11%, #c8e6c9 23%, white 24%, white 30%, #c8e6c9 31%, #c8e6c9 43%, white 44%, white 50%, #c8e6c9 51%, #c8e6c9 63%, white 64%),
+                    radial-gradient(circle at 100% 0%,    #c8e6c9 40%, white 41%, white 44%, #c8e6c9 45%, #c8e6c9 52%, white 52%, white 56%, transparent 56%, transparent),
+                    radial-gradient(circle at 0    0%,    #c8e6c9 40%, white 41%, white 44%, #c8e6c9 45%, #c8e6c9 52%, white 52%, white 56%, transparent 56%, transparent);
+  background-size: 50px 50px;
+  background-blend-mode: overlay; 
+  
+  padding: 30px;
+  border-radius: 20px;
+  border: 4px double #2e7d32; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-width: 500px;
+  width: 100%;
   opacity: 0;
   pointer-events: none;
   transition: 0.3s ease;
@@ -117,59 +132,52 @@ body{
 }
 
 .finance-title {
-    font-size: 1.5rem;
-    color: #ffd966;
-    margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #1b5e20; 
+  margin-bottom: 20px;
   text-align: center;					 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  font-weight: bold;					
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 800;
+  border-bottom: 2px dashed #2e7d32;
+  padding-bottom: 10px;
 }
 
 .finance-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .finance-box {
-    padding: 15px;
-    border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85); 
+  border-left: 5px solid #2e7d32;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.finance-box .label { 
+  font-size: 1.1rem; 
+  font-weight: bold; 
+  color: #2e7d32;		   
+}
+.finance-box .amount { 
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  color: #1b5e20;
+}
+
+.footer-note { 
+  font-size: 0.9rem; 
+  color: #43a047; 
+  font-style: italic; 
   text-align: center;
+  margin-top: 15px;
+  display: block;
 }
-
-.income { background: rgba(39, 174, 96, 0.7); border-bottom: 4px solid #27ae60; }
-.expense { background: rgba(231, 76, 60, 0.7); border-bottom: 4px solid #e74c3c; }
-.balance { background: rgba(41, 128, 185, 0.7); border-bottom: 4px solid #2980b9; }
-
-.finance-box .label { display: block; font-size: 1rem; font-weight: bold; margin-bottom: 10px; }
-.finance-box .amount { display: block; font-size: 1.8rem; font-weight: 900; }
-.footer-note { font-size: 0.85rem; color: white; font-style: italic; }
-
-/* ================= CSS PENGUMUMAN ================= */
-.announcement-container {
-  position: absolute;
-  top: 180px;   /* Sama dengan finance-container */
-  left: 50px;   /* Sama dengan finance-container */
-  width: 700px; /* Sesuaikan dengan ukuran gambar Anda */
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s ease;
-  z-index: 100;
-}
-
-.announcement-container.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.announcement-img {
-  width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  border: 4px solid #ffd966; /* Frame warna emas agar senada */
-}
-
 /* TABLE */
 table{
   width:100%;
@@ -223,8 +231,8 @@ th,td{
     width: 100%;
     height: 100%;
     background: url("iqomah.jpg") no-repeat center center;
-    background-size: cover; /* Ini kunci agar gambar memenuhi layar */
-    filter: brightness(0.4); /* Menggelapkan gambar agar teks terbaca */
+    background-size: cover; 
+    filter: brightness(0.4); 
     z-index: -1;
 }
 
@@ -234,7 +242,7 @@ th,td{
 }
 
 .countdown-large {
-    font-size: 12rem; /* Ukuran jam diperbesar agar dramatis */
+    font-size: 12rem; 
     font-weight: 900;
     color: #ffffff;
     text-shadow: 0 0 30px rgba(0,0,0,1);
@@ -246,7 +254,6 @@ th,td{
     text-transform: uppercase;
     letter-spacing: 5px;
 }
-
 </style>
 
 <link id="theme-link" rel="stylesheet" href="style.css">
@@ -289,58 +296,44 @@ th,td{
 </div>
 <!-- ================= ISIAN LAPORAN KEUANGAN ================= -->
 
-<!--
+<!-- ================= CONTROLLER KEYBOARD (TOMBOL 5) ================= -->
 <script>
   document.addEventListener('keydown', (e) => {
-    // Tombol 2: Laporan Keuangan
-    if (e.key === '2') {
+    // Tombol 5: Toggle Informasi Petugas Jumat
+    if (e.key === '5') {
       const financeBox = document.querySelector('.finance-container');
-      const announceBox = document.querySelector('.announcement-container');
-      
       if (financeBox) {
         financeBox.classList.toggle('active');
-        // Tutup pengumuman jika keuangan dibuka agar tidak tumpang tindih
-        if(announceBox) announceBox.classList.remove('active');
       }
     }
-
-    // Tombol 3: Pengumuman
-    if (e.key === '3') {
-      const announceBox = document.querySelector('.announcement-container');
-      const financeBox = document.querySelector('.finance-container');
-      
-      if (announceBox) {
-        announceBox.classList.toggle('active');
-        // Tutup keuangan jika pengumuman dibuka
-        if(financeBox) financeBox.classList.remove('active');
-      }
-    }
-  }); 
+  });			 
 </script>
--->
-<div class="finance-container">
-    <div class="finance-title">Laporan Keuangan Masjid</div>
-    <div class="finance-grid">
-        <div class="finance-box income">
-            <span class="label">PEMASUKAN</span>
-            <span class="amount">Rp 2.500.000</span>
-        </div>
-        <div class="finance-box expense">
-            <span class="label">PENGELUARAN</span>
-            <span class="amount">Rp 1.200.000</span>
-        </div>
-        <div class="finance-box balance">
-            <span class="label">SALDO AKHIR</span>
-            <span class="amount">Rp 1.300.000</span>
-        </div>
-        <div class="footer-note">
-            *Update terakhir: 17 Mei 2026
-        </div>
-    </div>   
-</div>	   
-<!-- ================= PENGUMUMAN ================= -->
-<div class="announcement-container">
-    <img src="pengumuman3.jpg" alt="Pengumuman Masjid" class="announcement-img">
+
+<!-- ================= CSS INFORMASI JUMAT ============== -->
+<div class="finance-container"> 
+  <div class="finance-title">Jumat, 5 Juni 2026</div>
+  
+  <div class="finance-grid">
+    <!-- Baris Khotib -->
+    <div class="finance-box">
+      <span class="label">Khotib Jumat</span>
+      <span class="amount">Ustadz Alam</span>
+    </div>
+    
+    <!-- Baris Imam -->
+    <div class="finance-box">
+      <span class="label">Imam Jumat</span>
+      <span class="amount">Ustadz Alam</span>
+    </div>
+    
+    <!-- Baris Bilal -->
+    <div class="finance-box">
+      <span class="label">Bilal</span>
+      <span class="amount">noname</span>
+    </div>
+  </div>
+
+  <span class="footer-note">Info Petugas Shalat Jumat</span>
 </div>
 
 <script>
@@ -443,9 +436,9 @@ th,td{
     <span>
       Sholat berjamaah lebih utama dua puluh tujuh derajat.”
       (HR. Bukhari & Muslim) —
-      Mohon matikan atau silent handphone saat sholat       berlangsung —
+      Mohon matikan atau silent handphone saat sholat berlangsung —
       Luruskan dan rapatkan shaf —
-      Sesungguhnya sholat mencegah dari perbuatan keji dan       mungkar —
+      Sesungguhnya sholat mencegah dari perbuatan keji dan mungkar —
       Jagalah kebersihan dan ketenangan masjid
     </span>
   </div>
