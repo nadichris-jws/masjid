@@ -602,7 +602,7 @@ const hariIni = new Date().getDay(); // 0 = Minggu, 5 = Jumat
 function updateCountdown(){
   if(!window.jadwal) return;
 
-  const now = new Date(new Date().getTime() + 0);
+  const now = new Date(new Date().getTime() + 24000);
   const today = new Date();
 
   const list = [
